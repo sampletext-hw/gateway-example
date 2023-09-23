@@ -1,0 +1,76 @@
+version: "3"
+
+services:
+  
+  gateway-api:
+    container_name: gateway-api
+    build:
+      context: ./gateway-api
+      dockerfile: .Dockerfile
+    environment:
+      TZ: "Europe/Moscow"
+      ExternalServicesOptions__WeatherServiceUrl: 'http://weather-api:80/'
+      ExternalServicesOptions__SalaryServiceUrl: 'http://salary-api:80/'
+      ExternalServicesOptions__AuthServiceUrl: 'http://auth-api:80/'
+      
+      JwtConfig__Issuer: 'gateway-example-issuer'
+      JwtConfig__Audience: 'gateway-example-audience'
+      JwtConfig__Key: 'CakeIsALie111222333'
+      # 10 минут
+      JwtConfig__LifetimeSeconds: 600
+    healthcheck:
+      test: wget --no-verbose --tries=1 http://localhost/health-check -qO- || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    ports:
+      - '5000:80'
+    restart: unless-stopped
+
+  weather-api:
+    container_name: weather-api
+    build:
+      context: ./weather-api
+      dockerfile: .Dockerfile
+    environment:
+      TZ: "Europe/Moscow"
+    healthcheck:
+      test: wget --no-verbose --tries=1 http://localhost/health-check -qO- || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  auth-api:
+    container_name: auth-api
+    build:
+      context: ./auth-api
+      dockerfile: .Dockerfile
+    environment:
+      TZ: "Europe/Moscow"
+      
+      JwtConfig__Issuer: 'gateway-example-issuer'
+      JwtConfig__Audience: 'gateway-example-audience'
+      JwtConfig__Key: 'CakeIsALie111222333'
+      # 10 минут
+      JwtConfig__LifetimeSeconds: 600
+    healthcheck:
+      test: wget --no-verbose --tries=1 http://localhost/health-check -qO- || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  salary-api:
+    container_name: salary-api
+    build:
+      context: ./salary-api
+      dockerfile: .Dockerfile
+    environment:
+      TZ: "Europe/Moscow"
+    healthcheck:
+      test: wget --no-verbose --tries=1 http://localhost/health-check -qO- || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped

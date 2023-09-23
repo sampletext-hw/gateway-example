@@ -1,0 +1,67 @@
+# This is a generated file. Not intended for manual editing.
+version: "3"
+services:
+  auth-api:
+    build:
+      context: "C:\\Projects\\CSharp\\GatewayExample\\auth-api"
+      dockerfile: ".Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/auth-api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    image: "auth-api:dev"
+    ports: []
+    volumes:
+    - "C:\\Projects\\CSharp\\GatewayExample\\auth-api:/app:rw"
+    working_dir: "/app"
+  gateway-api:
+    build:
+      context: "C:\\Projects\\CSharp\\GatewayExample\\gateway-api"
+      dockerfile: ".Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/gateway-api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    image: "gateway-api:dev"
+    ports: []
+    volumes:
+    - "C:\\Projects\\CSharp\\GatewayExample\\gateway-api:/app:rw"
+    working_dir: "/app"
+  salary-api:
+    build:
+      context: "C:\\Projects\\CSharp\\GatewayExample\\salary-api"
+      dockerfile: ".Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/salary-api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    image: "salary-api:dev"
+    ports: []
+    volumes:
+    - "C:\\Projects\\CSharp\\GatewayExample\\salary-api:/app:rw"
+    working_dir: "/app"
+  weather-api:
+    build:
+      context: "C:\\Projects\\CSharp\\GatewayExample\\weather-api"
+      dockerfile: ".Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/weather-api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    image: "weather-api:dev"
+    ports: []
+    volumes:
+    - "C:\\Projects\\CSharp\\GatewayExample\\weather-api:/app:rw"
+    working_dir: "/app"
